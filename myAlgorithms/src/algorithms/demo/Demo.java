@@ -60,7 +60,7 @@ public class Demo {
 	public static void main(String[] args) throws IOException {
 		//run();
 		Maze3dGenerator maze3dGenerator = new DfsMaze3dGenerator();
-		Maze3d maze = maze3dGenerator.generate(5,5,3);
+		Maze3d maze = maze3dGenerator.generate(1,2,3);
 		maze.printMaze();
 		
 		OutputStream out = new MyCompressorOutputStream(new FileOutputStream("1.maz"));
@@ -70,12 +70,18 @@ public class Demo {
 		out.close();
 		
 		InputStream in = new MyDecompressorInputStream(new FileInputStream("1.maz"));
+
 		byte b[]=new byte[maze.toByteArray().length];
 		in.read(b);
 		in.close();
 		
 		Maze3d loaded=new Maze3d(b);
+		System.out.println();
+		System.out.print("equals:");
 		System.out.println(loaded.equals(maze));
+		
+		
+		
 	}
 	
 }

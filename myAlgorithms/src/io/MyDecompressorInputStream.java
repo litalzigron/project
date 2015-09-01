@@ -13,14 +13,24 @@ public class MyDecompressorInputStream extends InputStream {
 	}
 
 	@Override
-	public int read() throws IOException {
+	public int read(){
 		int c;
-		// TODO Auto-generated method stub
-		while((c=in.read())!=-1)
-		{
-			System.out.println(c+ ",");
+		try {
+			while((c=in.read())!=-1)
+			{
+				System.out.print(c+ ",");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return 0;
 	}
+	protected void finalize() throws Throwable {
+	     try {
+	         in.close();        // close open files
+	     } finally {
+	         super.finalize();
+	     }
+	 }
 }
  

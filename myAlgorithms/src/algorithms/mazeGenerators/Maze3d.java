@@ -11,8 +11,8 @@ public class Maze3d {
 	//Data Members
 	private int [][][] maze;
 	
-	/** The dept. */
-	private int width,height,dept;//x,y,z
+	/** The depth. */
+	private int width,height,depth;//x,y,z
 	
 	/** The goal. */
 	private Position start, goal;
@@ -22,35 +22,30 @@ public class Maze3d {
 	 *
 	 * @param width the width
 	 * @param height the height
-	 * @param dept the dept
+	 * @param depth the depth
 	 */
-	public Maze3d(int width, int height, int dept)//Ctor
+	public Maze3d(int width, int height, int depth)//Ctor
 	{
 		super();
 		this.width=width;
 		this.height=height;
-		this.dept=dept;
-		this.maze = new int [width][height][dept];
+		this.depth=depth;
+		this.maze = new int [width][height][depth];
 	}
 	
 	public Maze3d(byte[] maze3dArrayToBytes)//Ctor
 	{
 		super();
-		this.start.setX((int)maze3dArrayToBytes[0]);
-		this.start.setY((int)maze3dArrayToBytes[1]);
-		this.start.setZ((int)maze3dArrayToBytes[2]);
+		this.start= new Position((int)maze3dArrayToBytes[0], (int)maze3dArrayToBytes[1], (int)maze3dArrayToBytes[2]);		
+		this.goal=new Position((int)maze3dArrayToBytes[3], (int)maze3dArrayToBytes[4], (int)maze3dArrayToBytes[5]);
 		
-		this.goal.setX((int)maze3dArrayToBytes[3]);
-		this.goal.setY((int)maze3dArrayToBytes[4]);
-		this.goal.setZ((int)maze3dArrayToBytes[5]);
-
 		this.width=(int)maze3dArrayToBytes[6];
 		this.height=(int)maze3dArrayToBytes[7];
-		this.dept=(int)maze3dArrayToBytes[8];
+		this.depth=(int)maze3dArrayToBytes[8];
 		
-		this.maze = new int [width][height][dept];
+		this.maze = new int [width][height][depth];
 		int k=9;
-		for(int i=0; i<dept; i++)
+		for(int i=0; i<depth; i++)
 		{
 			for(int j=0;j<height; j++)
 			{
@@ -74,21 +69,21 @@ public class Maze3d {
 	}
 	
 	/**
-	 * Gets the dept.
+	 * Gets the depth.
 	 *
-	 * @return the dept
+	 * @return the depth
 	 */
-	public int getDept() {
-		return dept;
+	public int getdepth() {
+		return depth;
 	}
 	
 	/**
-	 * Sets the dept.
+	 * Sets the depth.
 	 *
-	 * @param dept the new dept
+	 * @param depth the new depth
 	 */
-	public void setDept(int dept) {
-		this.dept = dept;
+	public void setdepth(int depth) {
+		this.depth = depth;
 	}
 	
 	/**
@@ -202,10 +197,7 @@ public class Maze3d {
 		else
 		maze[x][y][z]=num;
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+
 	@Override
 	public String toString()
 	{
@@ -215,7 +207,7 @@ public class Maze3d {
 		{
 			for(int j=0;j<height; j++)
 			{
-				for(int t=0;t<dept; t++)
+				for(int t=0;t<depth; t++)
 				{
 					string+="["+maze[i][j][t]+"]";
 				}
@@ -281,11 +273,11 @@ public class Maze3d {
 		if (x < 0) { 
 			throw new IndexOutOfBoundsException("Invalid Input: getCrossSectionByX");
 		}	
-		int [][]arrayX=new int [height][dept];
+		int [][]arrayX=new int [height][depth];
 		System.out.println("getCrossSectionByX");
 		for(int i=0;i<height;i++)
 		{
-			for(int j=0;j<dept;j++)
+			for(int j=0;j<depth;j++)
 				arrayX[i][j]=maze[x][i][j];
 		}
 		return arrayX;
@@ -302,9 +294,9 @@ public class Maze3d {
 		if (y < 0) { 
 			throw new IndexOutOfBoundsException("Invalid Input: getCrossSectionByY");
 		}	
-		int [][]arrayY=new int [dept][width];
+		int [][]arrayY=new int [depth][width];
 		System.out.println("getCrossSectionByY");
-		for(int i=0;i<dept;i++)
+		for(int i=0;i<depth;i++)
 		{
 			for(int j=0;j<width;j++)
 				arrayY[i][j]=maze[j][y][i];
@@ -342,9 +334,9 @@ public class Maze3d {
 	{
 		System.out.println("width: "+width);
 		System.out.println("hight: "+height);
-		System.out.println("depth: "+dept);
+		System.out.println("depth: "+depth);
 
-		for(int i=0; i<dept; i++)
+		for(int i=0; i<depth; i++)
 		{
 			for(int j=0;j<height; j++)
 			{
@@ -372,7 +364,7 @@ public class Maze3d {
 			 py = (int) (Math.random()*(height));
 		}while(startPosition.getY()>py);
 		do{
-			 pz = (int) (Math.random()*(dept));
+			 pz = (int) (Math.random()*(depth));
 		}while(startPosition.getZ()>pz);
 		Position p=new Position(px,py,pz);
 		return p;
@@ -387,7 +379,7 @@ public class Maze3d {
 	{
 		int px = (int) (Math.random()*(width));
 		int py = (int) (Math.random()*(height));
-		int pz = (int) (Math.random()*(dept));
+		int pz = (int) (Math.random()*(depth));
 		Position p=new Position(px,py,pz);
 		return p;
 	}
@@ -397,7 +389,7 @@ public class Maze3d {
 	 */
 	public void printMaze()
 	{
-		for(int i=0; i<dept; i++)
+		for(int i=0; i<depth; i++)
 		{
 			for(int j=0;j<height; j++)
 			{
@@ -422,7 +414,7 @@ public class Maze3d {
 	 */
 	public boolean isValid(int x, int y, int z)
 	{	
-		if (x>=0 &&y>=0 && z>=0 &&  x<width && y<height && z<dept ){
+		if (x>=0 &&y>=0 && z>=0 &&  x<width && y<height && z<depth ){
 			return true;
 		}
 		return false;
@@ -460,7 +452,7 @@ public class Maze3d {
 			if(maze[x][y-1][z]==0)
 			count++;
 		}
-		if (z+1<dept)
+		if (z+1<depth)
 		{
 			if(maze[x][y][z+1]==0)
 			count++;
@@ -476,8 +468,8 @@ public class Maze3d {
 			return false;
 	}
 	public byte[] toByteArray() {
-		int size = 8+ (this.width*this.height*this.dept);
-		System.out.println(size);
+		int size = 8 + (this.width*this.height*this.depth);
+		System.out.println("Size is: " + size);
 		byte[] maze3dArrayToBytes = new byte[size+1];
 		maze3dArrayToBytes[0]=(byte)this.start.getX();
 		maze3dArrayToBytes[1]=(byte)this.start.getY();
@@ -486,13 +478,12 @@ public class Maze3d {
 		maze3dArrayToBytes[3]=(byte)this.goal.getX();
 		maze3dArrayToBytes[4]=(byte)this.goal.getY();
 		maze3dArrayToBytes[5]=(byte)this.goal.getZ();
-
 		maze3dArrayToBytes[6]=(byte) this.width;
 		maze3dArrayToBytes[7]=(byte) this.height;
-		maze3dArrayToBytes[8]=(byte) this.dept;
+		maze3dArrayToBytes[8]=(byte) this.depth;
 		
 		int k=9;
-		for(int i=0;i<dept;i++)
+		for(int i=0;i<depth;i++)
 		{
 			for(int j=0;j<height; j++)
 			{
@@ -505,4 +496,10 @@ public class Maze3d {
 		}
 		return maze3dArrayToBytes;
 	}
+	/*
+	@Override
+    public boolean equals(Object obj){ // we override Object's equals method
+        //return this.xyz.equals(((Position)obj).getXyz());
+		return this.
+    }*/
 }
