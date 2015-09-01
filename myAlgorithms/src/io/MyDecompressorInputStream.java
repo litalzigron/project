@@ -5,10 +5,22 @@ import java.io.InputStream;
 
 public class MyDecompressorInputStream extends InputStream {
 
-	@Override
-	public int read() throws IOException {
-		// TODO Auto-generated method stub
-		return 0;
+	InputStream in;
+
+	public MyDecompressorInputStream(InputStream in) {
+		super();
+		this.in = in;
 	}
 
+	@Override
+	public int read() throws IOException {
+		int c;
+		// TODO Auto-generated method stub
+		while((c=in.read())!=-1)
+		{
+			System.out.println(c+ ",");
+		}
+		return 0;
+	}
 }
+ 

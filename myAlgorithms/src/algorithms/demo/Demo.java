@@ -1,4 +1,14 @@
 package algorithms.demo;
+import io.MyCompressorOutputStream;
+import io.MyDecompressorInputStream;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import algorithms.mazeGenerators.DfsMaze3dGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Maze3dGenerator;
@@ -47,8 +57,25 @@ public class Demo {
 		System.out.println("Amount of evaluated nodes for ASTAR Search algoritm using HeuristicManhattanDistance: "+ searcherAStarM.getNumberOfNodesEvaluated());
 		System.out.println("Amount of evaluated nodes for ASTAR Search algoritm using HeuristicAirDistance: "+ searcherAStarA.getNumberOfNodesEvaluated());
 	}
-	public static void main(String[] args) {
-		run();
+	public static void main(String[] args) throws IOException {
+		//run();
+		Maze3dGenerator maze3dGenerator = new DfsMaze3dGenerator();
+		Maze3d maze = maze3dGenerator.generate(5,5,3);
+		maze.printMaze();
+		
+		OutputStream out = new MyCompressorOutputStream(new FileOutputStream("1.maz"));
+		
+		out.write(maze.toByteArray());
+		out.flush();
+		out.close();
+		
+		InputStream in = new MyDecompressorInputStream(new FileInputStream("1.maz"));
+		byte b[]=new byte[maze.toByteArray().length];
+		in.read(b);
+		in.close();
+		
+		Maze3d loaded=new Maze3d(b);
+		System.out.println(loaded.equals(maze));
 	}
 	
 }

@@ -33,6 +33,36 @@ public class Maze3d {
 		this.maze = new int [width][height][dept];
 	}
 	
+	public Maze3d(byte[] maze3dArrayToBytes)//Ctor
+	{
+		super();
+		this.start.setX((int)maze3dArrayToBytes[0]);
+		this.start.setY((int)maze3dArrayToBytes[1]);
+		this.start.setZ((int)maze3dArrayToBytes[2]);
+		
+		this.goal.setX((int)maze3dArrayToBytes[3]);
+		this.goal.setY((int)maze3dArrayToBytes[4]);
+		this.goal.setZ((int)maze3dArrayToBytes[5]);
+
+		this.width=(int)maze3dArrayToBytes[6];
+		this.height=(int)maze3dArrayToBytes[7];
+		this.dept=(int)maze3dArrayToBytes[8];
+		
+		this.maze = new int [width][height][dept];
+		int k=9;
+		for(int i=0; i<dept; i++)
+		{
+			for(int j=0;j<height; j++)
+			{
+				for(int t=0;t<width; t++)
+				{
+					maze[t][j][i]=(int)maze3dArrayToBytes[k];
+					k++;
+				}
+			}
+		}
+	}
+	
 	/**
 	 * Gets the maze.
 	 *
@@ -445,34 +475,34 @@ public class Maze3d {
 		else
 			return false;
 	}
-	public byte[] toByteArray(Maze3d maze) {
-		int size = 8+ (maze.getWidth()*maze.getHeight()*maze.getDept());
-		byte[] maze3dArrayToBytes = new byte[size];
-		maze3dArrayToBytes[0]=(byte)maze.getStart().getX();
-		maze3dArrayToBytes[1]=(byte)maze.getStart().getY();
-		maze3dArrayToBytes[2]=(byte)maze.getStart().getZ();
+	public byte[] toByteArray() {
+		int size = 8+ (this.width*this.height*this.dept);
+		System.out.println(size);
+		byte[] maze3dArrayToBytes = new byte[size+1];
+		maze3dArrayToBytes[0]=(byte)this.start.getX();
+		maze3dArrayToBytes[1]=(byte)this.start.getY();
+		maze3dArrayToBytes[2]=(byte)this.start.getZ();
 		
-		maze3dArrayToBytes[3]=(byte)maze.getGoal().getX();
-		maze3dArrayToBytes[4]=(byte)maze.getGoal().getY();
-		maze3dArrayToBytes[5]=(byte)maze.getGoal().getZ();
+		maze3dArrayToBytes[3]=(byte)this.goal.getX();
+		maze3dArrayToBytes[4]=(byte)this.goal.getY();
+		maze3dArrayToBytes[5]=(byte)this.goal.getZ();
 
-		maze3dArrayToBytes[6]=(byte) maze.getWidth();
-		maze3dArrayToBytes[7]=(byte) maze.getHeight();
-		maze3dArrayToBytes[8]=(byte) maze.getDept();
+		maze3dArrayToBytes[6]=(byte) this.width;
+		maze3dArrayToBytes[7]=(byte) this.height;
+		maze3dArrayToBytes[8]=(byte) this.dept;
 		
 		int k=9;
-		for(int i=0; i<dept; i++)
+		for(int i=0;i<dept;i++)
 		{
 			for(int j=0;j<height; j++)
 			{
 				for(int t=0;t<width; t++)
 				{
-					maze3dArrayToBytes[k]=(byte)maze.getValue(i, j, t);
+					maze3dArrayToBytes[k]=(byte)(this.maze[t][j][i]);
 					k++;
 				}
 			}
 		}
 		return maze3dArrayToBytes;
 	}
-	
 }
