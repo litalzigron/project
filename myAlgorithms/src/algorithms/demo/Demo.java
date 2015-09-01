@@ -47,11 +47,8 @@ public class Demo {
 		System.out.println("Amount of evaluated nodes for ASTAR Search algoritm using HeuristicManhattanDistance: "+ searcherAStarM.getNumberOfNodesEvaluated());
 		System.out.println("Amount of evaluated nodes for ASTAR Search algoritm using HeuristicAirDistance: "+ searcherAStarA.getNumberOfNodesEvaluated());
 	}
-	
-	
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		run();
-
 	}
 	
 }

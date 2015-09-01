@@ -445,10 +445,34 @@ public class Maze3d {
 		else
 			return false;
 	}
-//	public byte[] toByteArray(Maze3d maze) {
-//		byte[] maze3dArrayToBytes;
-//		
-//		
-//	}
+	public byte[] toByteArray(Maze3d maze) {
+		int size = 8+ (maze.getWidth()*maze.getHeight()*maze.getDept());
+		byte[] maze3dArrayToBytes = new byte[size];
+		maze3dArrayToBytes[0]=(byte)maze.getStart().getX();
+		maze3dArrayToBytes[1]=(byte)maze.getStart().getY();
+		maze3dArrayToBytes[2]=(byte)maze.getStart().getZ();
+		
+		maze3dArrayToBytes[3]=(byte)maze.getGoal().getX();
+		maze3dArrayToBytes[4]=(byte)maze.getGoal().getY();
+		maze3dArrayToBytes[5]=(byte)maze.getGoal().getZ();
+
+		maze3dArrayToBytes[6]=(byte) maze.getWidth();
+		maze3dArrayToBytes[7]=(byte) maze.getHeight();
+		maze3dArrayToBytes[8]=(byte) maze.getDept();
+		
+		int k=9;
+		for(int i=0; i<dept; i++)
+		{
+			for(int j=0;j<height; j++)
+			{
+				for(int t=0;t<width; t++)
+				{
+					maze3dArrayToBytes[k]=(byte)maze.getValue(i, j, t);
+					k++;
+				}
+			}
+		}
+		return maze3dArrayToBytes;
+	}
 	
 }
