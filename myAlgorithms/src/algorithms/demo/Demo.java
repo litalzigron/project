@@ -60,7 +60,7 @@ public class Demo {
 	public static void main(String[] args) throws IOException {
 		//run();
 		Maze3dGenerator maze3dGenerator = new DfsMaze3dGenerator();
-		Maze3d maze = maze3dGenerator.generate(1,2,3);
+		Maze3d maze = maze3dGenerator.generate(2,2,3);
 		maze.printMaze();
 		
 		OutputStream out = new MyCompressorOutputStream(new FileOutputStream("1.maz"));

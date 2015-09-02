@@ -469,7 +469,6 @@ public class Maze3d {
 	}
 	public byte[] toByteArray() {
 		int size = 8 + (this.width*this.height*this.depth);
-		System.out.println("Size is: " + size);
 		byte[] maze3dArrayToBytes = new byte[size+1];
 		maze3dArrayToBytes[0]=(byte)this.start.getX();
 		maze3dArrayToBytes[1]=(byte)this.start.getY();
@@ -478,6 +477,7 @@ public class Maze3d {
 		maze3dArrayToBytes[3]=(byte)this.goal.getX();
 		maze3dArrayToBytes[4]=(byte)this.goal.getY();
 		maze3dArrayToBytes[5]=(byte)this.goal.getZ();
+		
 		maze3dArrayToBytes[6]=(byte) this.width;
 		maze3dArrayToBytes[7]=(byte) this.height;
 		maze3dArrayToBytes[8]=(byte) this.depth;
@@ -494,7 +494,12 @@ public class Maze3d {
 				}
 			}
 		}
+		System.out.print("tobyte: ");
+		for(int i=0;i<k;i++)
+			System.out.print(maze3dArrayToBytes[i]+",");
+		System.out.println();
 		return maze3dArrayToBytes;
+		
 	}
 	/*
 	@Override
